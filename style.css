@@ -1,143 +1,169 @@
-/* Charity: water Brand Colors & Fonts
-
-Primary Colors:
-- Yellow:     #FFC907
-- Blue:       #2E9DF7
-
-Secondary Colors:
-- Light Blue: #8BD1CB
-- Green:      #4FCB53
-- Orange:     #FF902A
-- Red:        #F5402C
-- Dark Green: #159A48
-- Pink:       #F16061
-
-Fonts:
-- Proxima Nova
-- Avenir
-
-*/
-
-* {
-  box-sizing: border-box;
+/* Charity: water brand vibes */
+:root{
+  --cw-yellow:#FFC907;
+  --cw-blue:#2E9DF7;
+  --good:#FFC907;
+  --bad:#8B5E3C; /* “dirty” brown */
+  --bg:#f0f0f0;
+  --ink:#333;
 }
 
-body {
+*{ box-sizing:border-box; }
+
+body{
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 30px;
-  background-color: #f0f0f0;
-  color: #333;
+  margin:0;
+  padding:30px;
+  background-color:var(--bg);
+  color:var(--ink);
 }
 
-.container {
-  max-width: 750px;
-  margin: 50px auto;
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.container{
+  max-width:750px;
+  margin: 30px auto;
+  background:#fff;
+  padding:32px;
+  border-radius:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
 }
 
-h1 {
-  text-align: center;
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
+h1{
+  text-align:center;
+  margin:0 0 10px;
 }
 
-h1 img {
-  height: 50px;
-  margin-right: 15px;
-  display: block;
+.game-instructions{
+  text-align:center;
+  margin:0 0 18px;
 }
 
-.game-instructions {
-  font-size: 18px;
-  margin-bottom: 30px;
-  text-align: center;
+.stats{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:#fafafa;
+  padding:12px 16px;
+  border-radius:10px;
+  font-weight:bold;
+  margin-bottom:14px;
 }
 
-.stats {
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 30px;
-  background-color: #f5f5f5;
-  padding: 15px 0;
-  border-radius: 8px;
+.progress{
+  width:100%;
+  height:10px;
+  background:#ececec;
+  border-radius:999px;
+  overflow:hidden;
+  margin-bottom:18px;
+}
+#progress-bar{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg, var(--cw-blue), var(--cw-yellow));
+  transition:width .25s ease;
 }
 
-.stats p {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:14px;
+  margin:0 auto 16px;
+  max-width:540px;
 }
 
-.game-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-  margin: 0 auto;
-  max-width: 500px;
+.grid-cell{
+  background:#e8e8e8;
+  border-radius:12px;
+  aspect-ratio:1;
+  position:relative;
+  overflow:hidden;
+  touch-action:manipulation;
 }
 
-.grid-cell {
-  background-color: #e8e8e8;
-  border-radius: 8px;
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  position: relative;
-  overflow: hidden;
+.water-can-wrapper,
+.bad-can-wrapper{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
 }
 
-.water-can-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70px;
-  height: 70px;
-  /* Ensure the wrapper is properly centered */
+.water-can, .bad-can{
+  width:76px; height:76px; border-radius:50%;
+  cursor:pointer; user-select:none;
+  transform-origin:center;
+  animation:pop .2s ease-out;
 }
 
-.water-can {
-  width: 100%;
-  height: 100%;
-  background-image: url('img/water-can.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  border-radius: 50%;
-  animation: popUp 0.5s cubic-bezier(0.17, 0.67, 0.34, 2);
-  transform-origin: center; /* Ensure scaling happens from the center */
+.water-can{
+  background-image:url('img/water-can.png');
+  background-size:cover; background-position:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
 
-@keyframes popUp {
-  0% {
-    transform: scale(0.5); /* Start scaling from the center */
-  }
-  100% {
-    transform: scale(1); /* End scaling at full size */
-  }
+.bad-can{
+  background: radial-gradient(circle at 35% 35%, #a06d46 0 45%, var(--bad) 46% 100%);
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
+  position:relative;
+}
+.bad-can::after{
+  content:"✖";
+  position:absolute; inset:auto;
+  font-size:28px; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,.4);
 }
 
+@keyframes pop{
+  from{ transform:scale(.6); opacity:.4; }
+  to  { transform:scale(1); opacity:1; }
+}
 
-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  display: block;
-  margin: 30px auto 0;
-  transition: background-color 0.2s;
+.controls{
+  display:flex; gap:10px; justify-content:center; margin-top:6px;
+}
+button{
+  background: #4FCB53;
+  color:#fff; border:none;
+  padding:10px 18px; font-size:16px;
+  border-radius:10px; cursor:pointer;
+}
+button.secondary{ background:#888; }
+button:disabled{ opacity:.6; cursor:not-allowed; }
+
+.achievement{
+  min-height:24px;
+  text-align:center;
+  color:#159A48;
+  font-weight:700;
+  margin:8px 0 10px;
+}
+
+/* Feedback */
+.flash-good{ outline:3px solid var(--good); }
+.flash-bad { animation:shake .25s linear; outline:3px solid #F5402C; }
+@keyframes shake{
+  0%,100% { transform:translateX(0); }
+  25% { transform:translateX(-4px); }
+  75% { transform:translateX(4px); }
+}
+
+/* Confetti */
+#confetti{
+  pointer-events:none;
+  position:fixed; inset:0;
+  overflow:hidden;
+}
+.confetti{
+  position:absolute;
+  width:8px; height:14px;
+  opacity:0.9;
+  animation: fall 1.4s linear forwards, spin 1.4s linear forwards;
+}
+@keyframes fall{
+  to{ transform: translateY(110vh) rotate(0deg); opacity:1; }
+}
+@keyframes spin{
+  to{ transform: rotate(720deg); }
+}
+
+/* Small screens */
+@media (max-width:520px){
+  .water-can, .bad-can{ width:64px; height:64px; }
 }

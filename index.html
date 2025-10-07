@@ -1,23 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
   <title>Water Quest</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link href="style.css" rel="stylesheet" />
 </head>
 <body>
   <div class="container">
     <h1>Water Quest</h1>
-    <p class="game-instructions">Collect 20 items to complete the game!</p>
+    <p class="game-instructions">Tap the yellow jerry cans to collect clean water. Avoid the brown “bad cans.”</p>
+
     <div class="stats">
-      <p>Cans Collected: <span id="current-cans">0</span></p>
+      <p>Cans Collected: <span id="current-cans">0</span> / <span id="goal-cans">25</span></p>
       <p>Time Left: <span id="timer">30</span>s</p>
     </div>
-    <div id="achievements" class="achievement"></div>
-    <div class="game-grid"></div>
-    <button id="start-game">Start Game</button>
+
+    <div class="progress">
+      <div id="progress-bar"></div>
+    </div>
+
+    <div id="achievements" class="achievement" aria-live="polite"></div>
+
+    <div class="game-grid" aria-label="tap targets grid"></div>
+
+    <div class="controls">
+      <button id="start-game">Start Game</button>
+      <button id="reset-game" class="secondary" disabled>Reset</button>
+    </div>
+
+    <p class="brand-note">
+      Inspired by <a href="https://www.charitywater.org/" target="_blank" rel="noopener">charity: water</a> — bring clean water to more people.
+    </p>
   </div>
+
+  <!-- Confetti container -->
+  <div id="confetti"></div>
+
   <script src="script.js"></script>
 </body>
 </html>
