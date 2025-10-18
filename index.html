@@ -1,72 +1,89 @@
 <!DOCTYPE html>
-</header>
-<h1>Water Quest</h1>
-<p class="game-instructions">Tap the yellow jerry cans to collect clean water. Avoid the brown “bad cans.” Reach the goal before time runs out.</p>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Water Quest • charity: water</title>
 
+  <!-- Brand-adjacent font (Proxima Nova is primary; Montserrat is a close public alternative) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 
-<div class="topbar" role="region" aria-label="game setup and stats">
-<div class="mode">
-<label for="difficulty"><strong>Difficulty:</strong></label>
-<select id="difficulty" aria-label="Select difficulty">
-<option value="easy">Easy</option>
-<option value="normal" selected>Normal</option>
-<option value="hard">Hard</option>
-<option value="endless">Endless</option>
-</select>
-<button id="mute" class="secondary" aria-pressed="false" title="Toggle sound">🔊 Sound</button>
-</div>
+  <link href="style.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container" role="main">
+    <header class="header">
+      <h1 class="title">Water Quest</h1>
+      <p class="tagline">Tap the yellow jerry cans to collect clean water. Avoid the brown “bad cans.”</p>
+    </header>
 
+    <section class="panel stats" aria-label="Game stats">
+      <div><strong>Cans:</strong> <span id="current-cans">0</span> / <span id="goal-cans">25</span></div>
+      <div><strong>Time:</strong> <span id="timer">30</span>s</div>
+      <div class="mode-wrap">
+        <label for="mode" class="visually-hidden">Difficulty</label>
+        <select id="mode" aria-label="Difficulty mode">
+          <option value="easy">Easy</option>
+          <option value="normal" selected>Normal</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+    </section>
 
-<div class="stats" aria-live="polite">
-<div>Cans: <span id="current-cans">0</span> / <span id="goal-cans">—</span></div>
-<div>Time: <span id="timer">—</span>s</div>
-<div>Best (<span id="best-label">Normal</span>): <span id="best-score">0</span></div>
-</div>
+    <div class="progress" aria-label="progress toward goal">
+      <div id="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
+    </div>
 
+    <p id="milestone" class="milestone" aria-live="polite"></p>
 
-<div class="controls">
-<button id="start-game">Start</button>
-<button id="reset-game" class="secondary" disabled>Reset</button>
-</div>
-</div>
+    <section class="game-grid" aria-label="tap targets grid"></section>
 
+    <div class="controls">
+      <button id="start-game" class="btn">Start</button>
+      <button id="reset-game" class="btn secondary" disabled>Reset</button>
+      <button id="howto" class="btn ghost" aria-expanded="false" aria-controls="howto-content">How to Play</button>
+    </div>
 
-<div class="progress" aria-hidden="true">
-<div id="progress-bar"></div>
-</div>
+    <div id="howto-content" class="howto panel" hidden>
+      <ul>
+        <li>Tap <strong>yellow</strong> cans to collect clean water.</li>
+        <li>Avoid <strong>brown</strong> cans—tapping them removes a point.</li>
+        <li>Pick a <strong>difficulty</strong>: goals, pace, and hazards change by mode.</li>
+        <li>Hit milestones for encouragement. Beat the goal before time runs out!</li>
+      </ul>
+    </div>
 
+    <!-- Confetti container -->
+    <div id="confetti" aria-hidden="true"></div>
 
-<div id="milestone" class="milestone" aria-live="polite"></div>
+    <!-- Audio (add your own mp3/ogg to /audio). Filenames are referenced in script.js -->
+    <audio id="sfx-good" preload="auto">
+      <source src="audio/collect.mp3" type="audio/mpeg" />
+      <source src="audio/collect.ogg" type="audio/ogg" />
+    </audio>
+    <audio id="sfx-bad" preload="auto">
+      <source src="audio/miss.mp3" type="audio/mpeg" />
+      <source src="audio/miss.ogg" type="audio/ogg" />
+    </audio>
+    <audio id="sfx-win" preload="auto">
+      <source src="audio/win.mp3" type="audio/mpeg" />
+      <source src="audio/win.ogg" type="audio/ogg" />
+    </audio>
+  </div>
 
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>
+        Inspired by <a href="https://www.charitywater.org/" target="_blank" rel="noopener">charity: water</a>.
+        Learn more or give:
+        <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener">Donate once</a> •
+        <a href="https://www.charitywater.org/donate/the-spring" target="_blank" rel="noopener">Join The Spring</a>
+      </p>
+    </div>
+  </footer>
 
-<div class="game-grid" aria-label="tap targets grid" role="grid"></div>
-
-
-<footer>
-<div class="brand-note">
-<span class="brand-badge"><span class="jerry" aria-hidden="true"></span> charity: water</span>
-<span>Inspired by the mission to end the water crisis.</span>
-</div>
-<nav aria-label="charity: water links">
-<a href="https://www.charitywater.org/" target="_blank" rel="noopener">Website</a>
-• <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener">Donate</a>
-• <a href="https://www.charitywater.org/donate/the-spring" target="_blank" rel="noopener">Join The Spring</a>
-</nav>
-</footer>
-</div>
-
-
-<!-- Confetti -->
-<div id="confetti" aria-hidden="true"></div>
-
-
-<!-- Optional sounds (drop files into /sounds). Safe to omit; code guards if missing. -->
-<audio id="s-collect" src="sounds/collect.mp3" preload="auto"></audio>
-<audio id="s-bad" src="sounds/bad.mp3" preload="auto"></audio>
-<audio id="s-win" src="sounds/win.mp3" preload="auto"></audio>
-<audio id="s-tick" src="sounds/tick.mp3" preload="auto"></audio>
-
-
-<script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
