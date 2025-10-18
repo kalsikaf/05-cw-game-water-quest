@@ -1,42 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width" />
-  <title>Water Quest</title>
-  <link href="style.css" rel="stylesheet" />
-</head>
-<body>
-  <div class="container">
-    <h1>Water Quest</h1>
-    <p class="game-instructions">Tap the yellow jerry cans to collect clean water. Avoid the brown “bad cans.”</p>
+</header>
+<h1>Water Quest</h1>
+<p class="game-instructions">Tap the yellow jerry cans to collect clean water. Avoid the brown “bad cans.” Reach the goal before time runs out.</p>
 
-    <div class="stats">
-      <p>Cans Collected: <span id="current-cans">0</span> / <span id="goal-cans">25</span></p>
-      <p>Time Left: <span id="timer">30</span>s</p>
-    </div>
 
-    <div class="progress">
-      <div id="progress-bar"></div>
-    </div>
+<div class="topbar" role="region" aria-label="game setup and stats">
+<div class="mode">
+<label for="difficulty"><strong>Difficulty:</strong></label>
+<select id="difficulty" aria-label="Select difficulty">
+<option value="easy">Easy</option>
+<option value="normal" selected>Normal</option>
+<option value="hard">Hard</option>
+<option value="endless">Endless</option>
+</select>
+<button id="mute" class="secondary" aria-pressed="false" title="Toggle sound">🔊 Sound</button>
+</div>
 
-    <div id="achievements" class="achievement" aria-live="polite"></div>
 
-    <div class="game-grid" aria-label="tap targets grid"></div>
+<div class="stats" aria-live="polite">
+<div>Cans: <span id="current-cans">0</span> / <span id="goal-cans">—</span></div>
+<div>Time: <span id="timer">—</span>s</div>
+<div>Best (<span id="best-label">Normal</span>): <span id="best-score">0</span></div>
+</div>
 
-    <div class="controls">
-      <button id="start-game">Start Game</button>
-      <button id="reset-game" class="secondary" disabled>Reset</button>
-    </div>
 
-    <p class="brand-note">
-      Inspired by <a href="https://www.charitywater.org/" target="_blank" rel="noopener">charity: water</a> — bring clean water to more people.
-    </p>
-  </div>
+<div class="controls">
+<button id="start-game">Start</button>
+<button id="reset-game" class="secondary" disabled>Reset</button>
+</div>
+</div>
 
-  <!-- Confetti container -->
-  <div id="confetti"></div>
 
-  <script src="script.js"></script>
+<div class="progress" aria-hidden="true">
+<div id="progress-bar"></div>
+</div>
+
+
+<div id="milestone" class="milestone" aria-live="polite"></div>
+
+
+<div class="game-grid" aria-label="tap targets grid" role="grid"></div>
+
+
+<footer>
+<div class="brand-note">
+<span class="brand-badge"><span class="jerry" aria-hidden="true"></span> charity: water</span>
+<span>Inspired by the mission to end the water crisis.</span>
+</div>
+<nav aria-label="charity: water links">
+<a href="https://www.charitywater.org/" target="_blank" rel="noopener">Website</a>
+• <a href="https://www.charitywater.org/donate" target="_blank" rel="noopener">Donate</a>
+• <a href="https://www.charitywater.org/donate/the-spring" target="_blank" rel="noopener">Join The Spring</a>
+</nav>
+</footer>
+</div>
+
+
+<!-- Confetti -->
+<div id="confetti" aria-hidden="true"></div>
+
+
+<!-- Optional sounds (drop files into /sounds). Safe to omit; code guards if missing. -->
+<audio id="s-collect" src="sounds/collect.mp3" preload="auto"></audio>
+<audio id="s-bad" src="sounds/bad.mp3" preload="auto"></audio>
+<audio id="s-win" src="sounds/win.mp3" preload="auto"></audio>
+<audio id="s-tick" src="sounds/tick.mp3" preload="auto"></audio>
+
+
+<script src="script.js"></script>
 </body>
 </html>
